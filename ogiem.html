@@ -1,0 +1,128 @@
+<!DOCTYPE html> 
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madzia G</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-image: url('madzia.jpg'); /* Dodaj tutaj link do zdjęcia */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #d63384;
+            font-size: 28px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .yes {
+            background-color: #ff4081;
+            color: white;
+        }
+        .no {
+            background-color: #ccc;
+            color: black;
+        }
+        .yes:hover {
+            background-color: #e6005c;
+        }
+        .no:hover {
+            background-color: #999;
+        }
+        .hearts {
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: float 1.5s infinite alternate;
+        }
+        @keyframes float {
+            from {
+                transform: translateY(0px);
+            }
+            to {
+                transform: translateY(-10px);
+            }
+        }
+        .options {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts">💕💖💘</div>
+    <div class="container" id="main-container">
+        <h1>Czy zostaniesz moją Walentynką? 💖</h1>
+        <div class="buttons">
+            <button class="yes" onclick="showOptions(0)">TAK</button>
+            <button class="no" onclick="resizeButtons()">NIE</button>
+        </div>
+        <div class="options" id="options"></div>
+    </div>
+    
+    <script>
+        let steps = [
+            ['Wrocław Pociągiem ', 'Ostrów Samochodem '],
+            ['Fast Food', ' Restauracja'],
+            ['Kino', ' Spacer '],
+            ['Ładne miejsce(np muzeum)', 'Robienie Fotek'],
+        ];
+        let currentStep = 0;
+
+        function resizeButtons() {
+            let yesButton = document.querySelector('.yes');
+            let noButton = document.querySelector('.no');
+            
+            let currentSize = window.getComputedStyle(yesButton).fontSize;
+            let newSize = parseFloat(currentSize) + 5 + 'px';
+            
+            yesButton.style.fontSize = newSize;
+            noButton.style.fontSize = '12px';
+        }
+        
+        function showOptions(step) {
+            if (step >= steps.length) {
+                alert('Kocham cie Gwiazda ❤️');
+                return;
+            }
+            let optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            optionsContainer.style.display = 'block';
+            
+            let question = document.createElement('h2');
+            question.innerText = 'Wybierz jedną opcję:';
+            optionsContainer.appendChild(question);
+            
+            steps[step].forEach(option => {
+                let button = document.createElement('button');
+                button.innerText = option;
+                button.onclick = () => showOptions(step + 1);
+                optionsContainer.appendChild(button);
+            });
+        }
+    </script>
+</body>
+</html>
